@@ -1,0 +1,49 @@
+package com.example.gymapi.service.impl;
+
+import com.example.gymapi.DTO.LoginDto;
+import com.example.gymapi.DTO.UserDto;
+import com.example.gymapi.model.User;
+import com.example.gymapi.repository.UserRepository;
+import com.example.gymapi.service.UserService;
+import lombok.AllArgsConstructor;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+@Service
+@AllArgsConstructor
+public class UserServiceImpl implements UserService {
+
+    private UserRepository userRepository;
+//    private BCryptPasswordEncoder passwordEncoder;
+
+    @Override
+    public User addUser(UserDto userDto) {
+        User user = new User();
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+        user.setEmail(userDto.getEmail());
+        user.setUserName(userDto.getUserName());
+        user.setPassword(userDto.getPassword());
+
+        userRepository.save(user);
+        return user;
+    }
+
+//    @Override
+//    public String login(LoginDto loginDto) {
+//        User user = userRepository.findByUserName(loginDto.getUsername());
+//
+//        if (user == null){
+//            return "user not found";
+//        }
+//
+//        String password = loginDto.getPassword();
+//        String encodedPassword = user.getPassword();
+//
+//        boolean isPwdRight = passwordEncoder.matches(password,encodedPassword);
+//        if (!isPwdRight){
+//            return "Login Success";
+//        }
+//        return "Password mismatch";
+//    }
+}
